@@ -1,0 +1,90 @@
+<style>
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+</style>
+<link rel="stylesheet" href="css/mystylesheet.css">
+<div id ="MainDiv">
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Online Team Collaboration</h1>      
+    <p>by Mohammed and alaa</p>
+  </div>
+</div>
+<div class="container">    
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<button  type="button" class="btn btn-success glyphicon glyphicon-log-in btn-lg" style="text-align: center;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">&nbsp Login</button>
+			<button  type="button" class="btn btn-danger glyphicon glyphicon-registration-mark btn-lg" style="text-align: center;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">&nbsp Sign Up</button>
+		</div>
+	</div>
+</div>
+
+<div id="id01" class="modal" ng-controller="login" >
+  
+  <form class="modal-content animate">
+    <div class="container" >
+      <label><h4>Username</h4></label>
+      <input type="text" ng-model="username" placeholder="Enter Username" name="uname" required>
+
+      <label><h4>Password</h4></label>
+      <input type="password" ng-model="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit" class="btn btn-success" ng-click="loginBtn()">Login</button>
+     
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<div id="id02" class="modal" ng-controller="registration">
+
+  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">x</span>
+  <form class="modal-content animate" >
+    <div class="container">
+     <label><h4>User Name</h4></label>
+	<div class="input-group">
+		<textarea data-ng-model="usernameRg" placeholder="Enter user name" class="form-control ng-pristine ng-valid"  maxlength="10" required></textarea> <span class="input-group-addon"><span data-ng-bind="nameULength()" class="ng-binding cblack">10</span></span>
+	</div>
+	
+    <label><h4>Password</h4></label>
+   <!--  <input type="text" ng-model="passwordRg" placeholder="Enter Password" required> -->
+    <div class="input-group">
+		<textarea data-ng-model="passwordRg" placeholder="Enter Password" class="form-control ng-pristine ng-valid"  maxlength="8" required></textarea> <span class="input-group-addon"><span data-ng-bind="passLength()" class="ng-binding cblack">8</span></span>
+	</div>
+	
+    <label><h4>User Nickname</h4></label>
+   <!--  <input type="text" ng-model="userNicknameRg" placeholder="Enter user Nickname" required> -->
+    <div class="input-group">
+		<textarea data-ng-model="userNicknameRg" placeholder="Enter user Nickname" class="form-control ng-pristine ng-valid"  maxlength="20" required></textarea> <span class="input-group-addon"><span data-ng-bind="nickNLength()" class="ng-binding cblack">20</span></span>
+	</div>
+	
+    <label><h4>Short description</h4></label>
+    <div class="input-group">
+		<textarea data-ng-model="shortDescripitionRg" placeholder="Enter short descripition" class="form-control ng-pristine ng-valid"  maxlength="50" name="Description"></textarea> <span class="input-group-addon"><span data-ng-bind="disLength()" class="ng-binding cblack">50</span></span>
+	</div>
+    
+    <label><h4>Photo</h4></label>
+    <input type="text" ng-model="photoRg" placeholder="Enter photo url" >
+
+
+      <div class="clearfix">
+      	<button type="submit" class="btn btn-success" ng-click="registrationBtn()" class="signupbtn">Sign Up</button>
+        <button type="button" class="btn btn-danger" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>

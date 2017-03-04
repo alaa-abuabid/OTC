@@ -1,0 +1,181 @@
+<!-- The Main html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OTC</title>
+</head>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/mystylesheet.css">
+
+ <script>
+$(document).ready(function() {
+	$("#thePage").hide();
+	$("#createPage").hide();
+	$("#searchPage").hide();
+	$("#searchTable").hide();
+	$("#ReplyWindow").hide();
+	
+	});
+</script>
+<body   ng-app="myApp" onload="onloadFunction()"   background="12e.jpg" onunload="#Logoutclick()">
+<div id="loader"></div>
+<div id="website" style="display:none;" >
+	
+	<div ng-include="'LoginPage.html'" id ="MainDiv"></div>
+	<!-- The Main UI application -->
+	<div id="thePage">
+		<!-- The Main UI application  navbar-->
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">OTC</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li id="homeLi" class="active"><a href="#" id="homeclick"><span class="glyphicon glyphicon-home"></span>&nbsp Home</a></li>
+		      <li id="createChannelLi" ><a href="#"  id="createChannelclick"><span class="glyphicon glyphicon-plus"></span>&nbsp Create channel</a></li>
+		      <li id="searchChannelLi" ><a href="#"  id="searchChannelclick"><span class="glyphicon glyphicon-search"></span>&nbsp Search</a></li>
+		    </ul>
+		    
+		    <ul class="nav navbar-nav navbar-right">
+		      <li><a href="#" id="Logoutclick"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+		    </ul>
+		  </div>
+		</nav>
+		<!-- The Main UI application  crate channel window-->
+		<div id="createPage" ng-controller="createChannel">
+		  <form id="createChannel" >
+		    <div class="container">
+			    <div class="well" >
+			      <label><h4>Channel name</h4></label>
+				  <div class="input-group">
+						<textarea id="channelName"  data-ng-model="channelName" placeholder="Enter channel name" class="form-control ng-pristine ng-valid"  maxlength="30" required></textarea> <span class="input-group-addon"><span data-ng-bind="nameChLength()" class="ng-binding cblack">30</span></span>
+				 </div>
+			      
+			      <label><h4>Channel description</h4></label>
+			      <div class="input-group">
+						<textarea id="channelDes"  data-ng-model="channelDescription" placeholder="Enter channel description" class="form-control ng-pristine ng-valid"  maxlength="500" required></textarea> <span class="input-group-addon"><span data-ng-bind="ChDsLength()" class="ng-binding cblack">500</span></span>
+				 </div>   
+			      <button type="submit" class="glyphicon glyphicon-plus btn btn-success" ng-click="createChannelBtn()">&nbsp Create</button>
+			    </div>
+		    </div>
+		  </form>
+		</div>
+		<!-- The Main UI application  search channel window-->
+		<div id="searchPage">
+		  <form id="searchChannelForm" >
+		    <div class="container">
+			    <div class="well" >
+			      <div class="well" >
+				      <label><h4>Enter Channel Name</h4></label>
+				      <input type="text" id="channelNameSearch" placeholder="Enter channel name" name="chnameSearch">
+				      <button class="glyphicon glyphicon-search btn btn-danger" onclick="channelNameSearchBtn()"> Search by channel name</button>
+				  </div>
+			      <div class="well" >
+				      <label><h4>Enter Nickname of user that participate in the channel </h4></label>
+				      <input type="text" id="channelNicknameSearch"  placeholder="Enter Nickname" name="chdesSearch" >    
+				      <button  class="glyphicon glyphicon-search btn btn-danger" onclick="channelNicknameSearchBtn()"> Search by Nickname of user that participate</button>
+				  </div>
+			    </div>
+		    </div>
+		  </form>
+		</div>
+		<!-- The Main UI application  search Table result window-->
+		<div id="searchTable">
+			<div class="container">
+				<div class="well" >
+					<h2>Result of search table</h2>
+					<div class="table-responsive"> 
+						<table class="table">
+		    				<thead>
+		      					<tr>
+		      						<th>#</th>
+							        <th>Name</th>
+							        <th>Description</th>
+							        <th>Number of users</th>
+		      					</tr>
+		    				</thead>
+		   					<tbody id="TableSearchId">
+							</tbody>
+		  				</table>
+		  			</div>
+				</div>
+			</div>
+		</div>
+		<!-- The Main UI application home window-->
+		<div id="homePage" class="row content" >
+			  <div class="col-sm-3 " >
+			    <div class="well" >
+			    	<!-- The Main UI application profile window-->
+			    	<div class="well" id="userDisplay"> 
+			    		<div class="media">
+			    			<div id="addUserPhoto" class="media-left"></div>
+			    			<div  class="media-body">
+			      				<h4 id="addNickName" class="media-heading"></h4>
+			      			 	<p3>connected.</p3>
+			    			</div>
+			  			</div>
+			    	</div>
+			    	<!-- The Main UI application public channel list window-->
+			    	<div class="panel panel-primary" id="publicChannel">
+			      		<div class="panel-heading">public channel</div>
+			      		<div class="panel-body"><ul id="publicChannelList" class="nav nav-pills nav-stacked">
+			      		</ul><br></div> 	
+			 		</div> 
+			 		<!-- The Main UI application private channel list window-->
+			    	<div class="panel panel-info" id="privateChannel">
+			      		<div class="panel-heading">private channel</div>
+			      		<div class="panel-body"><ul id="privateChannelList" class="nav nav-pills nav-stacked">
+			      		</ul><br></div> 
+			    	</div>
+			    </div>	
+		  	</div>  	
+			<div id="Chat" class="col-sm-5" >
+				<div class="well" >
+					<div>
+							<div class="panel panel-success" >
+								<div class="panel-heading" ><button onclick="unsubscribeChannelBtn()" class="btn btn-danger" id="unsubscribeChannelInfo">un-subscribe</button><h2 id="channelNameInfo"></h2></div>
+								<div id="channelInfo"></div>
+							</div>
+					</div>
+					<!-- The Main UI application message window-->
+					<div class="well" id="msgWindow" style="overflow: scroll; width: auto; height: 350px;">
+			  		</div>
+			      	<form role="form">
+				      	<input type="text" id="MsgId"  placeholder="New Message" name="MsgInput" >
+			        	<button type="submit" onclick="sendMsgBtn()" class="btn btn-success glyphicon glyphicon-send" > &nbsp Send</button>
+			      	</form>
+			      	<br><br>
+				</div>
+			</div> 
+			<!-- The Main UI application reply message window-->
+			<div id="ReplyWindow" class="col-sm-3 well" >
+				<div class="panel panel-warning" >
+					<div  class="panel-heading" ><button onclick="CancelBtn()" class="btn btn-danger">close.</button><h3>Reply Message window</h3><div id="TitleReplyMsg" class="hidden" ></div></div>
+				</div>
+				<div class="panel-body">
+					<div  id="ReplymsgWindow" style="overflow: scroll; width: auto; height: 250px;"></div>
+			      	<form role="form">
+				      	<input type="text" id="ReplyMsgId"  placeholder="New Message" name="MsgInput" >
+			        	<button type="submit" onclick="ReplyMsgBtn()" class="btn btn-warning glyphicon glyphicon-send" > &nbsp reply</button>
+			      	</form>
+			      	<br><br>
+			      </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="js/controllers.js" ></script>
+<script src="js/onload.js" ></script>
+<script src="js/navbarclick.js" ></script>
+<script src="js/subscribe.js" ></script>
+<script src="js/channelCreate.js" ></script>
+<script src="js/search.js" ></script>
+<script src="js/login.js" ></script>
+<script src="js/sendFunctions.js" ></script>
+<script src="js/reply.js" ></script>
+<script src="js/createMessage.js" ></script>
+<script src="js/notify.js" ></script>
+</body>
+</html>
